@@ -39,6 +39,16 @@ Chapter 5 of the book describes the schema; Chapter 4 walks through building and
 | 4. Your First Form | [`ch04_doctors.fmb`](forms/ch04/ch04_doctors.fmb) | — |
 | 5. The CareWell Clinic Application | — | — |
 
+### Part II — Building Forms
+
+| Chapter | Forms | Examples |
+|---|---|---|
+| 6. Modules | [`ch06_module.fmb`](forms/ch06/ch06_module.fmb) | [`ch06`](examples/ch06) (1) |
+| 7. Data Blocks | [`ch07_patients.fmb`](forms/ch07/ch07_patients.fmb) | [`ch07`](examples/ch07) (2) |
+| 8. Master-Detail Relations | [`ch08_departments.fmb`](forms/ch08/ch08_departments.fmb), [`ch08_invoices.fmb`](forms/ch08/ch08_invoices.fmb) | [`ch08`](examples/ch08) (3) |
+| 9. Text and Display Items | [`ch09_invoice.fmb`](forms/ch09/ch09_invoice.fmb) | — |
+| 10. Lists, Check Boxes, and Radio Groups | [`ch10_doctor.fmb`](forms/ch10/ch10_doctor.fmb), [`ch10_patient.fmb`](forms/ch10/ch10_patient.fmb) | [`ch10`](examples/ch10) (2) |
+
 ## License
 
 The code is provided as-is for learning, under the MIT License. Oracle and Java are registered
