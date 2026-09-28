@@ -78,6 +78,7 @@ Chapter 5 of the book describes the schema; Chapter 4 walks through building and
 | 28. Object Libraries and Templates | [`ch28_patient.fmb`](forms/ch28/ch28_patient.fmb), [`cw_objects.olb`](forms/ch28/cw_objects.olb), [`cw_template.fmb`](forms/ch28/cw_template.fmb) | — |
 | 29. Timers and Events | [`ch29_waiting_room.fmb`](forms/ch29/ch29_waiting_room.fmb) | [`ch29`](examples/ch29) (5) |
 | 30. WebUtil | [`ch30_patient_files.fmb`](forms/ch30/ch30_patient_files.fmb) | [`ch30`](examples/ch30) (4) |
+| 31. Java and JavaScript in the Forms Client | [`ch31_bean.fmb`](forms/ch31/ch31_bean.fmb), [`ch31_fbean.fmb`](forms/ch31/ch31_fbean.fmb), [`ch31_pjc.fmb`](forms/ch31/ch31_pjc.fmb) | [`ch31`](examples/ch31) (4) |
 
 ## License
 
