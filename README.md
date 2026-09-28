@@ -83,6 +83,12 @@ Chapter 5 of the book describes the schema; Chapter 4 walks through building and
 | 33. Oracle Reports | [`ch33_reports.fmb`](forms/ch33/ch33_reports.fmb) | [`ch33`](examples/ch33) (2) |
 | 34. Performance | [`ch34_perf_a1.fmb`](forms/ch34/ch34_perf_a1.fmb), [`ch34_perf_a100.fmb`](forms/ch34/ch34_perf_a100.fmb), [`ch34_perf.fmb`](forms/ch34/ch34_perf.fmb), [`ch34_trips.fmb`](forms/ch34/ch34_trips.fmb) | [`ch34`](examples/ch34) (4) |
 
+### Part V — Deploying and Managing
+
+| Chapter | Forms | Examples |
+|---|---|---|
+| 35. Configuring Forms Services | — | — |
+
 ## License
 
 The code is provided as-is for learning, under the MIT License. Oracle and Java are registered
