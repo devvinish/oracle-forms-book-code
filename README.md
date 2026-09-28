@@ -77,6 +77,7 @@ Chapter 5 of the book describes the schema; Chapter 4 walks through building and
 | 27. Blocks on Procedures, Queries, and Triggers | [`ch27_fee_proc_wizard.fmb`](forms/ch27/ch27_fee_proc_wizard.fmb), [`ch27_fee_proc.fmb`](forms/ch27/ch27_fee_proc.fmb), [`ch27_slots.fmb`](forms/ch27/ch27_slots.fmb), [`ch27_workload.fmb`](forms/ch27/ch27_workload.fmb) | [`ch27`](examples/ch27) (8) |
 | 28. Object Libraries and Templates | [`ch28_patient.fmb`](forms/ch28/ch28_patient.fmb), [`cw_objects.olb`](forms/ch28/cw_objects.olb), [`cw_template.fmb`](forms/ch28/cw_template.fmb) | — |
 | 29. Timers and Events | [`ch29_waiting_room.fmb`](forms/ch29/ch29_waiting_room.fmb) | [`ch29`](examples/ch29) (5) |
+| 30. WebUtil | [`ch30_patient_files.fmb`](forms/ch30/ch30_patient_files.fmb) | [`ch30`](examples/ch30) (4) |
 
 ## License
 
