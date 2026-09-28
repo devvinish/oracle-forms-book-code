@@ -79,6 +79,7 @@ Chapter 5 of the book describes the schema; Chapter 4 walks through building and
 | 29. Timers and Events | [`ch29_waiting_room.fmb`](forms/ch29/ch29_waiting_room.fmb) | [`ch29`](examples/ch29) (5) |
 | 30. WebUtil | [`ch30_patient_files.fmb`](forms/ch30/ch30_patient_files.fmb) | [`ch30`](examples/ch30) (4) |
 | 31. Java and JavaScript in the Forms Client | [`ch31_bean.fmb`](forms/ch31/ch31_bean.fmb), [`ch31_fbean.fmb`](forms/ch31/ch31_fbean.fmb), [`ch31_pjc.fmb`](forms/ch31/ch31_pjc.fmb) | [`ch31`](examples/ch31) (4) |
+| 32. REST Services and JSON | [`ch32_claims.fmb`](forms/ch32/ch32_claims.fmb), [`ch32_rest_packages.fmb`](forms/ch32/ch32_rest_packages.fmb) | [`ch32`](examples/ch32) (5) |
 
 ## License
 
