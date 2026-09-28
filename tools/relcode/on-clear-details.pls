@@ -1,0 +1,9 @@
+--
+-- Begin default relation program section
+--
+BEGIN
+  Clear_All_Master_Details;
+END;
+--
+-- End default relation program section
+--

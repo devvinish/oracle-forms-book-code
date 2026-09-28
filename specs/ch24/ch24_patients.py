@@ -1,0 +1,23 @@
+from formkit import *
+f = form('CH24_PATIENTS', 'CareWell Clinic')
+main(f, 'Patients of Pune', 520, 250)
+AttachedLibrary(f, 'cw_lib')
+c = block(f, 'CTL')
+btn = {}
+for i, (name, text) in enumerate([('APPTS', 'Appointments...'), ('VISITS', 'Visits'), ('FEES', 'Doctors\' Fees')]):
+    btn[name] = item(c, name, text, 424, 30 + i * 26, 88, 20, kind='button', mouseNavigate=False, keyboardNavigable=False)
+q = item(c, 'QUERY_ONLY', 'Query only', 424, 110, 88, kind='check', length=1, mouseNavigate=False)
+q.setCheckedValue('Y'); q.setUncheckedValue('N'); q.setInitializeValue('N')
+item(c, 'CHOSEN', 'Chosen appointment', 150, 206, 60, dt='number', kind='display', edge='start')
+# CTL first: Forms enters it at startup, which creates its record (and the check box's value)
+p = block(f, 'PATIENTS', table='PATIENTS', records=8, where="city = 'Pune'", order='last_name, first_name', scroll=True)
+item(p, 'PATIENT_ID', 'Id', 12, 30, 44, dt='number', updateAllowed=False)
+item(p, 'MRN', 'MRN', 58, 30, 70, length=10, updateAllowed=False)
+item(p, 'FIRST_NAME', 'First Name', 130, 30, 90, length=30)
+item(p, 'LAST_NAME', 'Last Name', 222, 30, 90, length=30)
+item(p, 'PHONE', 'Phone', 314, 30, 96, length=20)
+trigger(f, 'WHEN-NEW-FORM-INSTANCE', "go_block('PATIENTS');\nexecute_query;")
+trigger(btn['APPTS'], 'WHEN-BUTTON-PRESSED', file='ch24/appts-pressed.pls')
+trigger(btn['VISITS'], 'WHEN-BUTTON-PRESSED', file='ch24/visits-pressed.pls')
+trigger(btn['FEES'], 'WHEN-BUTTON-PRESSED', "new_form('ch21_fees');\nmessage('NEW_FORM returned');")
+save(f)

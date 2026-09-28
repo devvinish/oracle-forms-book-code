@@ -1,0 +1,26 @@
+from formkit import *
+f = form('CH21_FEES', 'CareWell Clinic')
+main(f, 'Consultation Fees', 560, 300)
+d = block(f, 'DOCTORS', table='DOCTORS', records=3, where='dept_id = 101', order='doctor_id')
+d.setInsertAllowed(False); d.setDeleteAllowed(False)
+item(d, 'DOCTOR_ID', 'ID', 12, 24, 40, dt='number', updateAllowed=False, keyboardNavigable=False)
+item(d, 'FIRST_NAME', 'First Name', 54, 24, 80, length=30, updateAllowed=False)
+item(d, 'LAST_NAME', 'Last Name', 136, 24, 80, length=30, updateAllowed=False)
+item(d, 'CONSULT_FEE', 'Fee', 218, 24, 50, dt='number', formatMask='9990D00',
+     justification=T.JUSTIFICATION_RIGHT_CTID, lowestAllowedValue='0')
+a = block(f, 'AUDIT_LOG', table='AUDIT_LOG', records=6, order='audit_id desc')
+a.setUpdateAllowed(False); a.setDeleteAllowed(False)
+a.setDMLReturnValue(True)
+item(a, 'AUDIT_ID', 'Audit', 12, 110, 36, dt='number', queryOnly=True,
+     insertAllowed=False, updateAllowed=False, keyboardNavigable=False)
+item(a, 'TABLE_NAME', 'Table', 50, 110, 60, length=30, initializeValue='DOCTORS')
+item(a, 'ROW_KEY', 'Key', 112, 110, 40, length=40)
+item(a, 'ACTION', 'Action', 154, 110, 50, length=10, initializeValue='NOTE')
+item(a, 'CHANGED_BY', 'By', 206, 110, 64, length=30, queryOnly=True, insertAllowed=False, keyboardNavigable=False)
+item(a, 'CHANGED_ON', 'On', 272, 110, 64, dt='date', formatMask='DD-MON-YYYY', queryOnly=True,
+     insertAllowed=False, keyboardNavigable=False)
+item(a, 'DETAILS', 'Details', 338, 110, 200, length=400)
+trigger(d, 'PRE-UPDATE', file='ch21/doctors-pre-update.pls')
+trigger(f, 'KEY-COMMIT', file='ch21/key-commit.pls')
+trigger(f, 'WHEN-NEW-FORM-INSTANCE', "go_block('AUDIT_LOG');\nexecute_query;\ngo_block('DOCTORS');\nexecute_query;")
+save(f)

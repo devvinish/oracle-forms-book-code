@@ -1,0 +1,18 @@
+from formkit import *
+f = form('CH26_ERRORS', 'CareWell Clinic')
+main(f, 'Appointments of Dr. Sara Nair', 520, 200)
+AttachedLibrary(f, 'cw_lib')
+a = block(f, 'APPOINTMENTS', table='APPOINTMENTS', records=7, scroll=True,
+          where="doctor_id = 1003 and appt_start >= date '2026-07-10'", order='appt_start')
+item(a, 'APPT_ID', 'Appt', 12, 30, 44, dt='number', insertAllowed=False, updateAllowed=False)
+item(a, 'PATIENT_ID', 'Patient', 58, 30, 50, dt='number')
+item(a, 'DOCTOR_ID', 'Doctor', 110, 30, 44, dt='number', initializeValue='1003')
+item(a, 'APPT_START', 'Start', 156, 30, 96, dt='datetime', formatMask='DD-MON-YYYY HH24:MI')
+item(a, 'DURATION_MIN', 'Min', 254, 30, 30, dt='number', initializeValue='30')
+item(a, 'STATUS', 'Status', 286, 30, 70, length=10, initializeValue='BOOKED')
+item(a, 'REASON', 'Reason', 358, 30, 150, length=100)
+trigger(a, 'PRE-INSERT', "select appointments_seq.nextval into :appointments.appt_id from dual;")
+trigger(f, 'ON-ERROR', file='ch26/on-error.pls')
+trigger(f, 'ON-MESSAGE', file='ch26/on-message.pls')
+trigger(f, 'WHEN-NEW-FORM-INSTANCE', "go_block('APPOINTMENTS');\nexecute_query;")
+save(f)

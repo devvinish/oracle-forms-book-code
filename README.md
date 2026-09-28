@@ -14,6 +14,9 @@ Everything was built and run with Oracle Forms 14.1.2.0.0 against Oracle AI Data
 | [`examples`](examples) | The PL/SQL of the examples (`.pls`, with the trigger or program unit it belongs to on its first line) and their output (`.out`). |
 | [`setup/carewell`](setup/carewell) | The CareWell Clinic schema: `create-user.sql` (run as a DBA), `install.sql` and `uninstall.sql` (run as CAREWELL). |
 | [`setup/forms`](setup/forms) | WLST scripts that complete a Forms development domain (Chapter 2). |
+| [`reports`](reports) | The report of Chapter 33, as `.rdf` and as XML. |
+| [`specs`](specs) | The Python scripts that built each form with the Forms Java API, one folder per chapter (Chapter 38). |
+| [`tools`](tools) | `formkit.py`, the helper those scripts use, with the relation code it adds; `compile-all.sh`, which compiles an application in order (Chapter 38). |
 
 ## Getting Started
 
@@ -90,6 +93,7 @@ Chapter 5 of the book describes the schema; Chapter 4 walks through building and
 | 35. Configuring Forms Services | — | — |
 | 36. Administration and Security | — | — |
 | 37. Upgrading to Forms 14.1.2 | [`ch37_legacy_before.fmb`](forms/ch37/ch37_legacy_before.fmb), [`ch37_legacy.fmb`](forms/ch37/ch37_legacy.fmb) | [`ch37`](examples/ch37) (3) |
+| 38. Automating Forms Development | — | — |
 
 ## License
 

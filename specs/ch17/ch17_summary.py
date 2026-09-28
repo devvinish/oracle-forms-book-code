@@ -1,0 +1,27 @@
+from formkit import *
+f = form('CH17_SUMMARY', 'CareWell Clinic')
+main(f, 'Patient Summary', 520, 250)
+p = block(f, 'PATIENTS', table='PATIENTS', order='last_name, first_name')
+p.setInsertAllowed(False); p.setUpdateAllowed(False); p.setDeleteAllowed(False)
+item(p, 'PATIENT_ID', dt='number', cnv=None)
+item(p, 'MRN', 'MRN', 70, 12, 70, length=10, edge='start')
+item(p, 'FIRST_NAME', 'Name', 70, 34, 100, length=30, edge='start')
+item(p, 'LAST_NAME', None, 174, 34, 110, length=30)
+item(p, 'BIRTH_DATE', 'Born', 70, 56, 76, dt='date', edge='start')
+item(p, 'AGE', 'Age', 190, 56, 30, dt='number', kind='display', db=False, edge='start')
+item(p, 'SUMMARY', 'Summary', 70, 80, 430, length=400, kind='display', db=False, edge='start')
+c = block(f, 'CTL')
+tl = item(c, 'TABLE_NAME', 'Table', 70, 130, 130, kind='list', length=30, edge='start',
+          listStyle=T.LSST_POPLIST_CTID, initializeValue='APPOINTMENTS')
+for i, t in enumerate(['APPOINTMENTS', 'DOCTORS', 'INVOICES', 'MEDICINES', 'PATIENTS', 'PRESCRIPTIONS', 'VISITS']):
+    tl.insertElement(i + 1, t, t)
+b = item(c, 'COUNT_ROWS', 'Count Rows', 210, 128, 80, 20, kind='button', mouseNavigate=False, keyboardNavigable=False)
+item(c, 'ROW_COUNT', 'Rows', 340, 130, 60, kind='display', length=20, edge='start',
+     justification=T.JUSTIFICATION_RIGHT_CTID)
+label(f, 'LBL_DYN', 'Dynamic SQL with EXEC_SQL', 12, 108, 200)
+unit(f, 'CW_UTIL', file='ch17/cw-util-spec.pls')
+unit(f, 'CW_UTIL', file='ch17/cw-util-body.pls')
+trigger(p, 'POST-QUERY', file='ch17/patients-post-query.pls')
+trigger(b, 'WHEN-BUTTON-PRESSED', file='ch17/count-rows.pls')
+trigger(f, 'WHEN-NEW-FORM-INSTANCE', "go_block('PATIENTS');\nexecute_query;")
+save(f)

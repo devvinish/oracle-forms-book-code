@@ -1,0 +1,35 @@
+from formkit import *
+f = form('CH32_CLAIMS', 'CareWell Clinic')
+main(f, 'Insurance Claims (REST)', 540, 290)
+i = block(f, 'INVOICES', table='INVOICES', records=5, scroll=True,
+          where="patient_id in (select patient_id from patients where city = 'Pune' and plan_id is not null)",
+          order='invoice_date desc')
+i.setInsertAllowed(False); i.setUpdateAllowed(False); i.setDeleteAllowed(False)
+item(i, 'INVOICE_ID', 'Invoice', 12, 20, 44, dt='number')
+item(i, 'INVOICE_DATE', 'Date', 58, 20, 76, dt='date', formatMask='DD-MON-YYYY')
+item(i, 'MRN', 'MRN', 136, 20, 70, kind='display', length=10, db=False)
+item(i, 'PATIENT', 'Patient', 208, 20, 110, kind='display', length=61, db=False)
+item(i, 'PLAN_ID', 'Plan', 320, 20, 30, dt='number', kind='display', db=False)
+item(i, 'STATUS', 'Status', 352, 20, 50, length=8)
+item(i, 'TOTAL_AMOUNT', 'Amount', 404, 20, 50, dt='number', formatMask='9990.00')
+item(i, 'PATIENT_ID', dt='number', cnv=None)
+trigger(i, 'POST-QUERY', "select mrn, first_name || ' ' || last_name, plan_id\n"
+        "  into :invoices.mrn, :invoices.patient, :invoices.plan_id\n  from patients where patient_id = :invoices.patient_id;")
+c = block(f, 'CTL')
+btns = {}
+for k, (name, text) in enumerate([('COVERAGE', 'Coverage'), ('SUBMIT', 'Submit Claim'), ('LIST', 'Claims')]):
+    btns[name] = item(c, name, text, 12 + k * 90, 124, 84, 20, kind='button', mouseNavigate=False, keyboardNavigable=False)
+item(c, 'TOKEN', 'Token', 330, 126, 90, length=40, initializeValue='cw-lab-token', edge='start')
+item(c, 'PLAN', 'Plan', 60, 152, 250, kind='display', length=100, edge='start')
+item(c, 'COVERED', 'Covered', 370, 152, 60, dt='number', kind='display', formatMask='9990.00', edge='start')
+item(c, 'RESULT', 'Result', 60, 172, 460, kind='display', length=200, edge='start')
+cl = block(f, 'CLAIMS', records=3)
+item(cl, 'CLAIM_ID', 'Claim', 12, 206, 110, length=20, insertAllowed=True)
+item(cl, 'INVOICE_ID', 'Invoice', 124, 206, 50, dt='number')
+item(cl, 'AMOUNT', 'Amount', 176, 206, 60, dt='number', formatMask='9990.00')
+item(cl, 'APPROVED', 'Approved', 238, 206, 60, dt='number', formatMask='9990.00')
+trigger(btns['COVERAGE'], 'WHEN-BUTTON-PRESSED', file='ch32/coverage.pls')
+trigger(btns['SUBMIT'], 'WHEN-BUTTON-PRESSED', file='ch32/submit-claim.pls')
+trigger(btns['LIST'], 'WHEN-BUTTON-PRESSED', file='ch32/list-claims.pls')
+trigger(f, 'WHEN-NEW-FORM-INSTANCE', "go_block('INVOICES');\nexecute_query;")
+save(f)

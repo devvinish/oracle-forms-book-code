@@ -1,0 +1,27 @@
+from formkit import *
+f = form('CH24_APPOINTMENTS', 'CareWell Clinic')
+w, cv = main(f, 'Appointments', 470, 230)
+w.setXPosition(40); w.setYPosition(70)
+AttachedLibrary(f, 'cw_lib')
+pm = ModuleParameter(f, 'P_PATIENT_ID')
+pm.setParameterDataType(T.PADA_NUMBER_CTID); pm.setParameterInitializeValue('10050')
+c = block(f, 'CTL')
+item(c, 'PATIENT', 'Patient', 50, 8, 200, kind='display', length=80, edge='start')
+item(c, 'INFO', None, 12, 186, 446, kind='display', length=200)
+a = block(f, 'APPOINTMENTS', table='APPOINTMENTS', records=6, where='patient_id = :parameter.p_patient_id',
+          order='appt_start desc', scroll=True)
+item(a, 'APPT_ID', 'Appt', 12, 44, 44, dt='number', updateAllowed=False)
+item(a, 'APPT_START', 'Start', 58, 44, 96, dt='datetime', formatMask='DD-MON-YYYY HH24:MI')
+item(a, 'DOCTOR', 'Doctor', 156, 44, 80, kind='display', length=40, db=False)
+item(a, 'STATUS', 'Status', 238, 44, 70, length=10)
+item(a, 'REASON', 'Reason', 310, 44, 150, length=100)
+item(a, 'DOCTOR_ID', dt='number', cnv=None)
+item(a, 'PATIENT_ID', dt='number', cnv=None)
+trigger(a, 'POST-QUERY', "select 'Dr. ' || last_name into :appointments.doctor\n  from doctors where doctor_id = :appointments.doctor_id;")
+btn = {}
+for i, (name, text) in enumerate([('CHOOSE', 'Choose'), ('CANCEL', 'Cancel')]):
+    btn[name] = item(c, name, text, 300 + i * 82, 6, 76, 20, kind='button', mouseNavigate=False, keyboardNavigable=False)
+trigger(f, 'WHEN-NEW-FORM-INSTANCE', file='ch24/appointments-new-form.pls')
+trigger(btn['CHOOSE'], 'WHEN-BUTTON-PRESSED', file='ch24/choose-pressed.pls')
+trigger(btn['CANCEL'], 'WHEN-BUTTON-PRESSED', 'exit_form;')
+save(f)
