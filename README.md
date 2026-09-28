@@ -51,6 +51,9 @@ Chapter 5 of the book describes the schema; Chapter 4 walks through building and
 | 11. Buttons, Images, and Charts | [`ch11_chart.fmb`](forms/ch11/ch11_chart.fmb), [`ch11_photo.fmb`](forms/ch11/ch11_photo.fmb), [`ch11_tchart.fmb`](forms/ch11/ch11_tchart.fmb) | [`ch11`](examples/ch11) (2) |
 | 12. Hierarchical Trees | [`ch12_medicines.fmb`](forms/ch12/ch12_medicines.fmb) | [`ch12`](examples/ch12) (1) |
 | 13. Canvases and Windows | [`ch13_patient_file.fmb`](forms/ch13/ch13_patient_file.fmb) | [`ch13`](examples/ch13) (3) |
+| 14. The Layout Editor and Visual Attributes | [`ch14_schedule.fmb`](forms/ch14/ch14_schedule.fmb) | [`ch14`](examples/ch14) (2) |
+| 15. Lists of Values and Record Groups | [`ch15_booking.fmb`](forms/ch15/ch15_booking.fmb) | [`ch15`](examples/ch15) (2) |
+| 16. Alerts, Editors, and Parameters | [`ch16_visits.fmb`](forms/ch16/ch16_visits.fmb) | [`ch16`](examples/ch16) (3) |
 
 ## License
 
