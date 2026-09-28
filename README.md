@@ -89,6 +89,7 @@ Chapter 5 of the book describes the schema; Chapter 4 walks through building and
 |---|---|---|
 | 35. Configuring Forms Services | — | — |
 | 36. Administration and Security | — | — |
+| 37. Upgrading to Forms 14.1.2 | [`ch37_legacy_before.fmb`](forms/ch37/ch37_legacy_before.fmb), [`ch37_legacy.fmb`](forms/ch37/ch37_legacy.fmb) | [`ch37`](examples/ch37) (3) |
 
 ## License
 
