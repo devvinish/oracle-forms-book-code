@@ -81,7 +81,7 @@ Chapter 5 of the book describes the schema; Chapter 4 walks through building and
 | 28. Object Libraries and Templates | [`ch28_patient.fmb`](forms/ch28/ch28_patient.fmb), [`cw_objects.olb`](forms/ch28/cw_objects.olb), [`cw_template.fmb`](forms/ch28/cw_template.fmb) | — |
 | 29. Timers and Events | [`ch29_waiting_room.fmb`](forms/ch29/ch29_waiting_room.fmb) | [`ch29`](examples/ch29) (5) |
 | 30. WebUtil | [`ch30_patient_files.fmb`](forms/ch30/ch30_patient_files.fmb) | [`ch30`](examples/ch30) (4) |
-| 31. Java and JavaScript in the Forms Client | [`ch31_bean.fmb`](forms/ch31/ch31_bean.fmb), [`ch31_fbean.fmb`](forms/ch31/ch31_fbean.fmb), [`ch31_js.fmb`](forms/ch31/ch31_js.fmb), [`ch31_pjc.fmb`](forms/ch31/ch31_pjc.fmb) | [`ch31`](examples/ch31) (8) |
+| 31. Java and JavaScript in the Forms Client | [`ch31_bean.fmb`](forms/ch31/ch31_bean.fmb), [`ch31_fbean.fmb`](forms/ch31/ch31_fbean.fmb), [`ch31_js.fmb`](forms/ch31/ch31_js.fmb), [`ch31_pjc.fmb`](forms/ch31/ch31_pjc.fmb) | [`ch31`](examples/ch31) (10) |
 | 32. REST Services and JSON | [`ch32_claims.fmb`](forms/ch32/ch32_claims.fmb), [`ch32_rest_packages.fmb`](forms/ch32/ch32_rest_packages.fmb) | [`ch32`](examples/ch32) (5) |
 | 33. Oracle Reports | [`ch33_reports.fmb`](forms/ch33/ch33_reports.fmb) | [`ch33`](examples/ch33) (2) |
 | 34. Performance | [`ch34_perf_a1.fmb`](forms/ch34/ch34_perf_a1.fmb), [`ch34_perf_a100.fmb`](forms/ch34/ch34_perf_a100.fmb), [`ch34_perf.fmb`](forms/ch34/ch34_perf.fmb), [`ch34_trips.fmb`](forms/ch34/ch34_trips.fmb) | [`ch34`](examples/ch34) (4) |
@@ -93,7 +93,13 @@ Chapter 5 of the book describes the schema; Chapter 4 walks through building and
 | 35. Configuring Forms Services | — | — |
 | 36. Administration and Security | — | — |
 | 37. Upgrading to Forms 14.1.2 | [`ch37_legacy_before.fmb`](forms/ch37/ch37_legacy_before.fmb), [`ch37_legacy.fmb`](forms/ch37/ch37_legacy.fmb) | [`ch37`](examples/ch37) (3) |
-| 38. Automating Forms Development | — | — |
+| 38. Automating Forms Development | — | [`ch38`](examples/ch38) (2) |
+
+### Appendices
+
+| Appendix | Forms | Examples |
+|---|---|---|
+| F. What's New in Forms 14.1.2 | [`appf_new.fmb`](forms/appf/appf_new.fmb) | [`appf`](examples/appf) |
 
 ## License
 
