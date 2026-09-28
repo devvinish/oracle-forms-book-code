@@ -4,6 +4,12 @@
 create or replace package cw_api as
   -- a one-line summary of a patient's visits: how many, the last one, and the doctors seen
   function patient_summary(p_patient_id in patients.patient_id%type) return varchar2;
+
+  -- everything a list of appointments shows about one appointment, in one call (Chapter 34)
+  procedure appt_details(p_appt_id in  appointments.appt_id%type,
+                         p_patient out varchar2,
+                         p_doctor  out varchar2,
+                         p_billed  out number);
 end cw_api;
 /
 
@@ -28,6 +34,22 @@ create or replace package body cw_api as
                 else v_count || ' visits, last on ' || to_char(v_last, 'DD-MON-YYYY')
                      || '; doctors: ' || v_doctors end;
   end patient_summary;
+
+  procedure appt_details(p_appt_id in  appointments.appt_id%type,
+                         p_patient out varchar2,
+                         p_doctor  out varchar2,
+                         p_billed  out number) is
+  begin
+    select p.first_name || ' ' || p.last_name, 'Dr. ' || d.last_name,
+           (select max(i.total_amount)
+            from   visits v join invoices i on i.visit_id = v.visit_id
+            where  v.appt_id = a.appt_id)
+    into   p_patient, p_doctor, p_billed
+    from   appointments a
+           join patients p on p.patient_id = a.patient_id
+           join doctors d  on d.doctor_id  = a.doctor_id
+    where  a.appt_id = p_appt_id;
+  end appt_details;
 end cw_api;
 /
 

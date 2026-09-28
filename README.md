@@ -81,6 +81,7 @@ Chapter 5 of the book describes the schema; Chapter 4 walks through building and
 | 31. Java and JavaScript in the Forms Client | [`ch31_bean.fmb`](forms/ch31/ch31_bean.fmb), [`ch31_fbean.fmb`](forms/ch31/ch31_fbean.fmb), [`ch31_js.fmb`](forms/ch31/ch31_js.fmb), [`ch31_pjc.fmb`](forms/ch31/ch31_pjc.fmb) | [`ch31`](examples/ch31) (8) |
 | 32. REST Services and JSON | [`ch32_claims.fmb`](forms/ch32/ch32_claims.fmb), [`ch32_rest_packages.fmb`](forms/ch32/ch32_rest_packages.fmb) | [`ch32`](examples/ch32) (5) |
 | 33. Oracle Reports | [`ch33_reports.fmb`](forms/ch33/ch33_reports.fmb) | [`ch33`](examples/ch33) (2) |
+| 34. Performance | [`ch34_perf_a1.fmb`](forms/ch34/ch34_perf_a1.fmb), [`ch34_perf_a100.fmb`](forms/ch34/ch34_perf_a100.fmb), [`ch34_perf.fmb`](forms/ch34/ch34_perf.fmb), [`ch34_trips.fmb`](forms/ch34/ch34_trips.fmb) | [`ch34`](examples/ch34) (4) |
 
 ## License
 
