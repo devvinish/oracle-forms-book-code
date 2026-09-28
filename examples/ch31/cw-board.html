@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<!-- CareWell bookings board: a web page connected to a running form through WJSI (Chapter 31) -->
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>CareWell Bookings Board</title>
+  <style>
+    body { font-family: sans-serif; margin: 24px; color: #222; }
+    #status { font-size: 13px; color: #555; margin: 8px 0 16px; }
+    canvas { max-width: 640px; }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <h2>Bookings in November 2026</h2>
+  <label>Forms session <input id="session" value="cw-board" size="12"></label>
+  <button onclick="connect()">Connect</button>
+  <div id="status">Not connected.</div>
+  <canvas id="chart" width="640" height="300"></canvas>
+  <script src="/forms/java/frmwebsocketjsi.js"></script>
+  <script>
+    var chart = null;
+    function connect() {                       // the WJSI server of the form, through port 9001
+      frmwebsocketjsi.connectToServer(9001);
+      setTimeout(function () {
+        frmwebsocketjsi.beginSession(document.getElementById('session').value);
+        document.getElementById('status').textContent = 'Connected to the form.';
+      }, 1000);
+    }
+    // called by the form: WSJSI_JS_EVAL_EXPR 'showBookings([...])'
+    function showBookings(rows) {
+      var labels = rows.map(function (r) { return r.doctor; });
+      var counts = rows.map(function (r) { return r.booked; });
+      if (chart) chart.destroy();
+      chart = new Chart(document.getElementById('chart'), {
+        type: 'bar',
+        data: { labels: labels, datasets: [{ label: 'Booked', data: counts, backgroundColor: '#2856b0' }] },
+        options: {
+          onClick: function (e, bars) {        // a click on a bar goes back to the form
+            if (bars.length) frmwebsocketjsi.raiseEvent('doctor', labels[bars[0].index]);
+          }
+        }
+      });
+      document.getElementById('status').textContent =
+        'Received ' + rows.length + ' doctors from the form. Click a bar to list the appointments.';
+    }
+  </script>
+</body>
+</html>
