@@ -1,0 +1,35 @@
+{
+  "openapi": "3.0.3",
+  "info": { "title": "CareWell Claims", "version": "1.0" },
+  "servers": [ { "url": "http://localhost:8098/api/v1" } ],
+  "paths": {
+    "/plans/{planId}": {
+      "get": {
+        "operationId": "getPlan",
+        "parameters": [ { "name": "planId", "in": "path", "required": true, "schema": { "type": "integer" } } ],
+        "responses": { "200": { "description": "The plan", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Plan" } } } } }
+      }
+    },
+    "/claims": {
+      "get": {
+        "operationId": "listClaims",
+        "parameters": [ { "name": "patient", "in": "query", "required": true, "schema": { "type": "string" } } ],
+        "responses": { "200": { "description": "The patient's claims", "content": { "application/json": { "schema": { "type": "array", "items": { "$ref": "#/components/schemas/Claim" } } } } } }
+      },
+      "post": {
+        "operationId": "submitClaim",
+        "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/NewClaim" } } } },
+        "responses": { "201": { "description": "The claim", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Claim" } } } } }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": { "bearer": { "type": "http", "scheme": "bearer" } },
+    "schemas": {
+      "Plan": { "type": "object", "properties": { "planId": { "type": "integer" }, "provider": { "type": "string" }, "planName": { "type": "string" }, "coveragePct": { "type": "number" }, "annualLimit": { "type": "number" } } },
+      "NewClaim": { "type": "object", "properties": { "patientMrn": { "type": "string" }, "invoiceId": { "type": "integer" }, "planId": { "type": "integer" }, "amount": { "type": "number" } } },
+      "Claim": { "type": "object", "properties": { "claimId": { "type": "string" }, "status": { "type": "string" }, "patientMrn": { "type": "string" }, "invoiceId": { "type": "integer" }, "amount": { "type": "number" }, "approvedAmount": { "type": "number" } } }
+    }
+  },
+  "security": [ { "bearer": [] } ]
+}
