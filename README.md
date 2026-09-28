@@ -68,6 +68,7 @@ Chapter 5 of the book describes the schema; Chapter 4 walks through building and
 | 23. PL/SQL Libraries | [`ch23_library.fmb`](forms/ch23/ch23_library.fmb), [`cw_lib.pld`](forms/ch23/cw_lib.pld), [`cw_lib.pll`](forms/ch23/cw_lib.pll) | [`ch23`](examples/ch23) (9) |
 | 24. Applications of Many Forms | [`ch24_appointments.fmb`](forms/ch24/ch24_appointments.fmb), [`ch24_patients.fmb`](forms/ch24/ch24_patients.fmb) | [`ch24`](examples/ch24) (5) |
 | 25. Menus and Security | [`ch25_patients.fmb`](forms/ch25/ch25_patients.fmb), [`cw_menu.mmb`](forms/ch25/cw_menu.mmb) | [`ch25`](examples/ch25) (8) |
+| 26. Errors, Messages, and Debugging | [`ch26_errors.fmb`](forms/ch26/ch26_errors.fmb) | [`ch26`](examples/ch26) (4) |
 
 ## License
 
