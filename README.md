@@ -80,6 +80,7 @@ Chapter 5 of the book describes the schema; Chapter 4 walks through building and
 | 30. WebUtil | [`ch30_patient_files.fmb`](forms/ch30/ch30_patient_files.fmb) | [`ch30`](examples/ch30) (4) |
 | 31. Java and JavaScript in the Forms Client | [`ch31_bean.fmb`](forms/ch31/ch31_bean.fmb), [`ch31_fbean.fmb`](forms/ch31/ch31_fbean.fmb), [`ch31_js.fmb`](forms/ch31/ch31_js.fmb), [`ch31_pjc.fmb`](forms/ch31/ch31_pjc.fmb) | [`ch31`](examples/ch31) (8) |
 | 32. REST Services and JSON | [`ch32_claims.fmb`](forms/ch32/ch32_claims.fmb), [`ch32_rest_packages.fmb`](forms/ch32/ch32_rest_packages.fmb) | [`ch32`](examples/ch32) (5) |
+| 33. Oracle Reports | [`ch33_reports.fmb`](forms/ch33/ch33_reports.fmb) | [`ch33`](examples/ch33) (2) |
 
 ## License
 

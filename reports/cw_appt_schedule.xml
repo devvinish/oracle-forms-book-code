@@ -1,0 +1,562 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<report name="cw_appt_schedule" DTDVersion="9.0.2.0.10">
+  <xmlSettings xmlTag="MODULE1" xmlPrologType="text">
+  <![CDATA[<?xml version="1.0" encoding="&Encoding"?>]]>
+  </xmlSettings>
+  <reportHtmlEscapes>
+    <beforePageHtmlEscape>
+    <![CDATA[#NULL#]]>
+    </beforePageHtmlEscape>
+    <afterPageHtmlEscape>
+    <![CDATA[<hr size=5 noshade>
+]]>
+    </afterPageHtmlEscape>
+    <beforeFormHtmlEscape>
+    <![CDATA[<html dir=&Direction>
+<body bgcolor="#ffffff">
+<form method=post action="_action_">
+<input name="hidden_run_parameters" type=hidden value="_hidden_">
+<font color=red><!--error--></font>
+<center>
+<p><table border=0 cellspacing=0 cellpadding=0>
+<tr>
+<td><input type=submit></td>
+<td width=15>
+<td><input type=reset></td>
+</tr>
+</table>
+<p><hr><p>
+]]>
+    </beforeFormHtmlEscape>
+    <pageNavigationHtmlEscape>
+    <![CDATA[<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html dir=&Direction>
+<head>
+<meta http-equiv="Content-Type"  content="text/html; charset=&Encoding">
+<TITLE>Oracle HTML Navigator</TITLE>
+<SCRIPT type="text/javascript" LANGUAGE = "JavaScript">
+
+var jump_index = 1			// Jump to this page
+var num_pages = &TotalPages			// Total number of pages
+var basefilename = "&file_name"		// Base file name
+var fileext = "&file_ext"		//File extension
+
+/* jumps to "new_page" */
+function new_page(form, new_page)
+{
+	form.reqpage.value = new_page;
+	parent.frames[0].location = basefilename + "_" + new_page + "."+fileext;
+}
+
+/* go back one page */
+function back(form)
+{
+	/* if we are not in first page */
+	if (jump_index > 1)
+	{
+		jump_index--;
+		new_page(form, jump_index);
+	}
+}
+
+/* go forward one page */
+function forward(form)
+{
+	/* if we are not in last page */
+	if (jump_index < num_pages)
+	{
+		jump_index++;
+		new_page(form, jump_index);
+	}
+}
+
+/* go to first page */
+function first(form)
+{
+	if(jump_index != 1)
+	{
+		jump_index = 1;
+		new_page(form, jump_index);
+	}
+}
+
+/* go to last page */
+function last(form)
+{
+	if(jump_index != num_pages)
+	{
+		jump_index = num_pages;
+		new_page(form, jump_index);
+	}
+}
+
+/* go to the user specified page number */
+function pagenum(form)
+{
+	/* sanity check */
+	if (form.reqpage.value < 1)
+	{
+		form.reqpage.value = 1;
+	}
+	if (form.reqpage.value > num_pages)
+	{
+		form.reqpage.value = num_pages;
+	}
+	jump_index = form.reqpage.value;
+	new_page(form, jump_index);
+}
+</SCRIPT>
+</HEAD>
+
+<BODY>
+<FORM NAME="ThisForm" action="" onSubmit="pagenum(this); return false;">
+<center><table><tr>
+<td> <INPUT TYPE="button"  VALUE="<< " onClick="first(this.form)">
+<td> <INPUT TYPE="button"  VALUE=" < " onClick="back(this.form)">
+<td> <INPUT TYPE="button"  VALUE="Page:" onClick="pagenum(this.form)">
+<td> <INPUT NAME="reqpage" VALUE="1" SIZE=2>
+<td> <INPUT TYPE="button"  VALUE=" > " onClick="forward(this.form)">
+<td> <INPUT TYPE="button"  VALUE=" >>" onClick="last(this.form)">
+</table></center>
+</FORM>
+</body></html>]]>
+    </pageNavigationHtmlEscape>
+  </reportHtmlEscapes>
+  <data>
+    <userParameter name="P_FROM" datatype="character" width="40"
+     defaultWidth="0" defaultHeight="0"/>
+    <userParameter name="P_TO" datatype="character" width="40"
+     defaultWidth="0" defaultHeight="0"/>
+    <dataSource name="Q_1">
+      <select canParse="no">
+      <![CDATA[select 'Dr. ' || d.first_name || ' ' || d.last_name doctor,
+       to_char(a.appt_start, 'Dy DD-Mon HH24:MI') start_time,
+       p.mrn, p.first_name || ' ' || p.last_name patient,
+       a.reason, a.status
+from   appointments a
+       join doctors d  on d.doctor_id = a.doctor_id
+       join patients p on p.patient_id = a.patient_id
+where  a.appt_start >= to_date(:p_from, 'YYYY-MM-DD')
+and    a.appt_start <  to_date(:p_to, 'YYYY-MM-DD') + 1
+order  by d.last_name, d.first_name, a.appt_start]]>
+      </select>
+      <displayInfo x="1.65002" y="1.00000" width="0.69995" height="0.19995"/>
+      <group name="G_DOCTOR">
+        <displayInfo x="1.04773" y="1.94995" width="1.90466" height="0.61963"
+        />
+        <dataItem name="DOCTOR" datatype="vchar2" columnOrder="13" width="65"
+         defaultWidth="300000" defaultHeight="10000" columnFlags="33">
+          <dataDescriptor expression="DOCTOR" descriptiveExpression="DOCTOR"
+           order="1" width="65"/>
+          <dataItemPrivate adtName="" schemaName=""/>
+        </dataItem>
+        <summary name="CountMRNPerDOCTOR" source="MRN" function="count"
+         precision="8" reset="G_DOCTOR" compute="report" defaultWidth="50000"
+         defaultHeight="10000" columnFlags="520" defaultLabel="Appointments:">
+          <displayInfo x="0.00000" y="0.00000" width="0.00000"
+           height="0.00000"/>
+        </summary>
+      </group>
+      <group name="G_APPT_START">
+        <displayInfo x="1.30408" y="3.31958" width="1.39197" height="1.33936"
+        />
+        <dataItem name="START_TIME" datatype="vchar2" columnOrder="20"
+         width="34" defaultWidth="160000" defaultHeight="10000"
+         columnFlags="33" defaultLabel="Start">
+          <dataDescriptor expression="START_TIME"
+           descriptiveExpression="START_TIME" order="2" width="34"/>
+          <dataItemPrivate adtName="" schemaName=""/>
+        </dataItem>
+        <dataItem name="MRN" datatype="vchar2" columnOrder="14"
+         defaultWidth="90000" defaultHeight="10000" columnFlags="33"
+         defaultLabel="MRN">
+          <dataDescriptor expression="MRN" descriptiveExpression="MRN"
+           order="3" width="10"/>
+          <dataItemPrivate adtName="" schemaName=""/>
+        </dataItem>
+        <dataItem name="PATIENT" datatype="vchar2" columnOrder="15" width="61"
+         defaultWidth="240000" defaultHeight="10000" columnFlags="33"
+         defaultLabel="Patient">
+          <dataDescriptor expression="PATIENT" descriptiveExpression="PATIENT"
+           order="4" width="61"/>
+          <dataItemPrivate adtName="" schemaName=""/>
+        </dataItem>
+        <dataItem name="REASON" datatype="vchar2" columnOrder="16" width="100"
+         defaultWidth="240000" defaultHeight="10000" columnFlags="33"
+         defaultLabel="Reason">
+          <dataDescriptor expression="REASON" descriptiveExpression="REASON"
+           order="5" width="100"/>
+          <dataItemPrivate adtName="" schemaName=""/>
+        </dataItem>
+        <dataItem name="STATUS" datatype="vchar2" columnOrder="17"
+         defaultWidth="100000" defaultHeight="10000" columnFlags="33"
+         defaultLabel="Status">
+          <dataDescriptor expression="STATUS" descriptiveExpression="STATUS"
+           order="6" width="10"/>
+          <dataItemPrivate adtName="" schemaName=""/>
+        </dataItem>
+      </group>
+    </dataSource>
+    <summary name="CountMRNPerReport" source="MRN" function="count"
+     precision="8" reset="report" compute="report" defaultWidth="50000"
+     defaultHeight="10000" columnFlags="520"
+     defaultLabel="Total appointments:">
+      <displayInfo x="0.00000" y="0.00000" width="0.00000" height="0.00000"/>
+    </summary>
+  </data>
+  <layout>
+  <section name="main">
+    <body>
+      <frame name="M_G_DOCTOR_GRPFR">
+        <geometryInfo x="0.00000" y="0.00000" width="7.25000" height="0.56250"
+        />
+        <generalLayout verticalElasticity="variable"/>
+        <visualSettings fillPattern="transparent"
+         fillBackgroundColor="r100g100b100"/>
+        <repeatingFrame name="R_G_DOCTOR" source="G_DOCTOR"
+         printDirection="down" minWidowRecords="1" columnMode="no">
+          <geometryInfo x="0.00000" y="0.00000" width="7.25000"
+           height="0.56250"/>
+          <generalLayout verticalElasticity="variable"/>
+          <visualSettings fillPattern="transparent"
+           fillBackgroundColor="TableCell"/>
+          <field name="F_DOCTOR" source="DOCTOR" minWidowLines="1" spacing="0"
+           alignment="start">
+            <font face="helvetica" size="10" bold="yes" textColor="TextColor"
+            />
+            <geometryInfo x="0.00000" y="0.00000" width="4.56250"
+             height="0.18750"/>
+            <generalLayout verticalElasticity="expand"/>
+            <advancedLayout printObjectOnPage="allPage"
+             basePrintingOn="enclosingObject"/>
+          </field>
+          <text name="B_COUNT" minWidowLines="1">
+            <textSettings justify="end" spacing="0"/>
+            <geometryInfo x="4.75000" y="0.00000" width="1.62500"
+             height="0.18750"/>
+            <textSegment>
+              <font face="helvetica" size="9" bold="yes" textColor="TextColor"/>
+              <string>
+              <![CDATA[Appointments:]]>
+              </string>
+            </textSegment>
+          </text>
+          <field name="F_COUNT" source="CountMRNPerDOCTOR" minWidowLines="1"
+           spacing="0" alignment="end">
+            <font face="helvetica" size="10" bold="yes" textColor="TextColor"/>
+            <geometryInfo x="6.43750" y="0.00000" width="0.81250"
+             height="0.18750"/>
+          </field>
+          <frame name="M_G_APPT_START_GRPFR">
+            <geometryInfo x="0.00000" y="0.18750" width="7.25000"
+             height="0.37500"/>
+            <generalLayout verticalElasticity="variable"/>
+            <visualSettings fillPattern="transparent"
+             fillBackgroundColor="r100g100b100"/>
+            <repeatingFrame name="R_G_APPT_START" source="G_APPT_START"
+             printDirection="down" minWidowRecords="1" columnMode="no">
+              <geometryInfo x="0.00000" y="0.37500" width="7.25000"
+               height="0.18750"/>
+              <generalLayout verticalElasticity="expand"/>
+              <visualSettings fillPattern="transparent"
+               fillBackgroundColor="TableCell"/>
+              <field name="F_START_TIME" source="START_TIME" minWidowLines="1"
+               spacing="0" alignment="start">
+                <font face="helvetica" size="10"/>
+                <geometryInfo x="0.00000" y="0.37500" width="1.31250"
+                 height="0.18750"/>
+                <generalLayout verticalElasticity="expand"/>
+              </field>
+              <field name="F_MRN" source="MRN" minWidowLines="1" spacing="0"
+               alignment="start">
+                <font face="helvetica" size="9"/>
+                <geometryInfo x="1.43750" y="0.37500" width="0.75000"
+                 height="0.18750"/>
+                <generalLayout verticalElasticity="expand"/>
+              </field>
+              <field name="F_PATIENT" source="PATIENT" minWidowLines="1"
+               spacing="0" alignment="start">
+                <font face="helvetica" size="9"/>
+                <geometryInfo x="2.31250" y="0.37500" width="1.62500"
+                 height="0.18750"/>
+                <generalLayout verticalElasticity="expand"/>
+              </field>
+              <field name="F_REASON" source="REASON" minWidowLines="1"
+               spacing="0" alignment="start">
+                <font face="helvetica" size="9"/>
+                <geometryInfo x="4.06250" y="0.37500" width="2.25000"
+                 height="0.18750"/>
+                <generalLayout verticalElasticity="expand"/>
+              </field>
+              <field name="F_STATUS" source="STATUS" minWidowLines="1"
+               spacing="0" alignment="start">
+                <font face="helvetica" size="9"/>
+                <geometryInfo x="6.43750" y="0.37500" width="0.81250"
+                 height="0.18750"/>
+                <generalLayout verticalElasticity="expand"/>
+              </field>
+            </repeatingFrame>
+            <frame name="M_G_APPT_START_HDR">
+              <geometryInfo x="0.00000" y="0.18750" width="7.25000"
+               height="0.18750"/>
+              <advancedLayout printObjectOnPage="allPage"
+               basePrintingOn="enclosingObject"/>
+              <visualSettings fillPattern="transparent"
+               fillBackgroundColor="TableHeading"/>
+              <text name="B_START_TIME" minWidowLines="1">
+                <textSettings spacing="0"/>
+                <geometryInfo x="0.00000" y="0.18750" width="1.31250"
+                 height="0.18750"/>
+                <visualSettings fillBackgroundColor="r25g50b75"/>
+                <textSegment>
+                  <font face="helvetica" size="10" bold="yes"
+                   textColor="white"/>
+                  <string>
+                  <![CDATA[Start]]>
+                  </string>
+                </textSegment>
+              </text>
+              <text name="B_MRN" minWidowLines="1">
+                <textSettings spacing="0"/>
+                <geometryInfo x="1.43750" y="0.18750" width="0.75000"
+                 height="0.18750"/>
+                <visualSettings fillBackgroundColor="r25g50b75"/>
+                <textSegment>
+                  <font face="helvetica" size="9" bold="yes" textColor="white"
+                  />
+                  <string>
+                  <![CDATA[MRN]]>
+                  </string>
+                </textSegment>
+              </text>
+              <text name="B_PATIENT" minWidowLines="1">
+                <textSettings spacing="0"/>
+                <geometryInfo x="2.31250" y="0.18750" width="1.62500"
+                 height="0.18750"/>
+                <visualSettings fillBackgroundColor="r25g50b75"/>
+                <textSegment>
+                  <font face="helvetica" size="9" bold="yes" textColor="white"
+                  />
+                  <string>
+                  <![CDATA[Patient]]>
+                  </string>
+                </textSegment>
+              </text>
+              <text name="B_REASON" minWidowLines="1">
+                <textSettings spacing="0"/>
+                <geometryInfo x="4.06250" y="0.18750" width="2.25000"
+                 height="0.18750"/>
+                <visualSettings fillBackgroundColor="r25g50b75"/>
+                <textSegment>
+                  <font face="helvetica" size="9" bold="yes" textColor="white"
+                  />
+                  <string>
+                  <![CDATA[Reason]]>
+                  </string>
+                </textSegment>
+              </text>
+              <text name="B_STATUS" minWidowLines="1">
+                <textSettings spacing="0"/>
+                <geometryInfo x="6.43750" y="0.18750" width="0.81250"
+                 height="0.18750"/>
+                <visualSettings fillBackgroundColor="r25g50b75"/>
+                <textSegment>
+                  <font face="helvetica" size="9" bold="yes" textColor="white"
+                  />
+                  <string>
+                  <![CDATA[Status]]>
+                  </string>
+                </textSegment>
+              </text>
+            </frame>
+          </frame>
+        </repeatingFrame>
+      </frame>
+    </body>
+    <margin>
+      <text name="B_OR$BODY_SECTION" minWidowLines="1">
+        <textSettings spacing="0"/>
+        <geometryInfo x="0.50000" y="0.25000" width="7.25000" height="0.18762"
+        />
+        <textSegment>
+          <font face="helvetica" size="12" bold="yes" textColor="r25g50b75"/>
+          <string>
+          <![CDATA[CareWell Clinic - Appointments by Doctor]]>
+          </string>
+        </textSegment>
+      </text>
+    </margin>
+  </section>
+  </layout>
+  <webSource>
+  <![CDATA[<%@ taglib uri="/WEB-INF/lib/reports_tld.jar" prefix="rw" %>
+<%@ page language="java" import="java.io.*" errorPage="/rwerror.jsp" session="false" %>
+<!--
+<rw:report id="report">
+<rw:objects id="objects">
+</rw:objects>
+-->
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<HTML>
+
+<HEAD>
+  <TITLE> Your Title </TITLE>
+  <rw:style id="rwblue164">
+<link rel="StyleSheet" type="text/css" href="css/rwblue.css">
+</rw:style>
+
+  <META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+</HEAD>
+
+<BODY bgColor="#ffffff" link="#000000" vLink="#000000">
+
+<TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
+  <TBODY>
+  <TR>
+    <TD bgColor="#ffffff" rowSpan=2 vAlign=middle width=188><IMG alt="" src="images/rwblue_logo.gif" width="135" height="36"></TD>
+    <TD bgColor="#ffffff" height=40 vAlign=top><IMG alt="" height=1 src="images/stretch.gif" width=5></TD>
+    <TD align=right bgColor="#ffffff" vAlign=bottom>&nbsp;</TD>
+  </TR>
+  </TBODY>
+</TABLE>
+
+<TABLE bgColor="#ff0000" border=0 cellPadding=0 cellSpacing=0 width="100%">
+  <TBODY>
+  <TR>
+    <TD bgColor="#ff0000" class="OraColumnHeader">&nbsp;</TD>
+  </TR>
+  </TBODY>
+</TABLE>
+
+<TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
+  <TBODY>
+  <TR>
+    <TD bgColor="#ff0000" vAlign=top class="OraColumnHeader"><IMG alt="" border=0 height=17 src="images/topcurl.gif" width=30></TD>
+    <TD vAlign=top width="100%">
+      <TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
+        <TBODY>
+        <TR>
+          <TD bgColor="#000000" height=1><IMG alt="" border=0 height=1 src="images/stretch.gif" width=1></TD>
+        </TR>
+        <TR>
+          <TD bgColor="#9a9c9a" height=1><IMG alt="" border=0 height=1 src="images/stretch.gif" width=1></TD>
+        </TR>
+        <TR>
+          <TD bgColor="#b3b4b3" height=1><IMG alt="" border=0 height=1 src="images/stretch.gif" width=1></TD>
+        </TR>
+        </TBODY>
+      </TABLE>
+    </TD>
+  </TR>
+  </TBODY>
+</TABLE>
+
+<TABLE width="100%" border="0" cellspacing="0" cellpadding="0">
+  <TR>
+    <TD width="29%" valign="top">
+      <TABLE width="77%" border="0" cellspacing="0" cellpadding="0">
+        <TR>
+          <TD width="10%" class="OraCellText"><IMG alt="" src="images/blue_d_arrow.gif" width="10" height="10"></TD>
+          <TD width="90%" class="OraCellText">Navigation goes here </TD>
+        </TR>
+        <TR>
+          <TD width="10%" class="OraCellText"><IMG alt="" src="images/blue_r_arrow.gif" width="10" height="10"></TD>
+          <TD width="90%" class="OraCellText">Navigation Item</TD>
+        </TR>
+      </TABLE>
+    </TD>
+    <TD width="71%">
+      <DIV align="center">
+      <!-- Data Area Generated by Reports Developer -->
+<rw:dataArea id="MGDOCTORGRPFR43">
+<rw:foreach id="RGDOCTOR431" src="G_DOCTOR">
+<!-- Start GetGroupHeader/n --> <table class="OraTable">
+ <caption class="OraHeader">  <br> <rw:field id="F_DOCTOR" src="DOCTOR" breakLevel="RGDOCTOR431" breakValue="&nbsp;"> F_DOCTOR </rw:field><br>
+ </caption>
+<!-- End GetGroupHeader/n -->   <tr>
+    <td valign="top">
+    <table class="OraTable" summary="">
+     <!-- Header -->
+     <thead>
+      <tr>
+       <th <rw:id id="HBSTARTTIME43" asArray="no"/> class="OraColumnHeader"> Start </th>
+       <th <rw:id id="HBMRN43" asArray="no"/> class="OraColumnHeader"> MRN </th>
+       <th <rw:id id="HBPATIENT43" asArray="no"/> class="OraColumnHeader"> Patient </th>
+       <th <rw:id id="HBREASON43" asArray="no"/> class="OraColumnHeader"> Reason </th>
+       <th <rw:id id="HBSTATUS43" asArray="no"/> class="OraColumnHeader"> Status </th>
+      </tr>
+     </thead>
+     <!-- Body -->
+     <tbody>
+      <rw:foreach id="RGAPPTSTART431" src="G_APPT_START">
+       <tr>
+        <td <rw:headers id="HFSTARTTIME43" src="HBSTARTTIME43"/> class="OraCellText"><rw:field id="FSTARTTIME43" src="START_TIME" nullValue="&nbsp;"> F_START_TIME </rw:field></td>
+        <td <rw:headers id="HFMRN43" src="HBMRN43"/> class="OraCellText"><rw:field id="FMRN43" src="MRN" nullValue="&nbsp;"> F_MRN </rw:field></td>
+        <td <rw:headers id="HFPATIENT43" src="HBPATIENT43"/> class="OraCellText"><rw:field id="FPATIENT43" src="PATIENT" nullValue="&nbsp;"> F_PATIENT </rw:field></td>
+        <td <rw:headers id="HFREASON43" src="HBREASON43"/> class="OraCellText"><rw:field id="FREASON43" src="REASON" nullValue="&nbsp;"> F_REASON </rw:field></td>
+        <td <rw:headers id="HFSTATUS43" src="HBSTATUS43"/> class="OraCellText"><rw:field id="FSTATUS43" src="STATUS" nullValue="&nbsp;"> F_STATUS </rw:field></td>
+       </tr>
+      </rw:foreach>
+     </tbody>
+     <tr>
+     </tr>
+    </table>
+   </td>
+  </tr>
+ </table>
+</rw:foreach>
+<table class="OraTable" summary="">
+</table>
+</rw:dataArea> <!-- id="MGDOCTORGRPFR43" -->
+<!-- End of Data Area Generated by Reports Developer -->
+
+      </DIV>
+    </TD>
+  </TR>
+</TABLE>
+
+<P>
+  <BR>
+</P>
+
+<TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
+  <TBODY>
+  <TR>
+    <TD bgColor="#000000" colSpan=2><IMG alt="" border=0 height=1 src="images/stretch.gif" width=1></TD>
+  </TR>
+  <TR>
+    <TD bgColor="#ff0000" colSpan=2 class="OraColumnHeader"><IMG alt="" border=0 height=4 src="images/stretch.gif" width=1></TD>
+  </TR>
+  <TR>
+    <TD bgColor="#000000" colSpan=2><IMG alt="" border=0 height=1 src="images/stretch.gif" width=1></TD>
+  </TR>
+  <TR>
+    <TD bgColor="#ffffff">&nbsp;</TD>
+    <TD align=right bgColor="#ffffff">&nbsp;</TD>
+  </TR>
+  </TBODY>
+</TABLE>
+
+</BODY>
+
+</HTML>
+
+<!--
+</rw:report>
+-->
+]]>
+  </webSource>
+  <colorPalette>
+    <color index="190" displayName="TextColor" value="#336699"/>
+    <color index="191" displayName="TableHeading" value="#336699"/>
+    <color index="192" displayName="TableCell" value="#e0f0ff"/>
+    <color index="193" displayName="Totals" value="#c5e3ff"/>
+  </colorPalette>
+  <reportPrivate defaultReportType="masterDetail" versionFlags2="0"
+   templateName="rwblue"/>
+  <reportWebSettings>
+  <![CDATA[#NULL#]]>
+  </reportWebSettings>
+</report>
