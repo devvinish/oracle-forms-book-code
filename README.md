@@ -60,6 +60,10 @@ Chapter 5 of the book describes the schema; Chapter 4 walks through building and
 | Chapter | Forms | Examples |
 |---|---|---|
 | 17. PL/SQL in Forms | [`ch17_summary.fmb`](forms/ch17/ch17_summary.fmb) | [`ch17`](examples/ch17) (4) |
+| 18. Triggers | [`ch18_trace.fmb`](forms/ch18/ch18_trace.fmb) | [`ch18`](examples/ch18) (2) |
+| 19. Validation | [`ch19_appointment.fmb`](forms/ch19/ch19_appointment.fmb) | [`ch19`](examples/ch19) (3) |
+| 20. Query Processing | [`ch20_search.fmb`](forms/ch20/ch20_search.fmb) | [`ch20`](examples/ch20) (2) |
+| 21. Transactions and Locking | [`ch21_fees.fmb`](forms/ch21/ch21_fees.fmb), [`ch21_invoices.fmb`](forms/ch21/ch21_invoices.fmb) | [`ch21`](examples/ch21) (3) |
 
 ## License
 
