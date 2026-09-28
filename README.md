@@ -88,6 +88,7 @@ Chapter 5 of the book describes the schema; Chapter 4 walks through building and
 | Chapter | Forms | Examples |
 |---|---|---|
 | 35. Configuring Forms Services | — | — |
+| 36. Administration and Security | — | — |
 
 ## License
 
