@@ -51,6 +51,18 @@ def canvas(f, name='MAIN_CNV', win='MAIN_WIN', width=560, height=320, kind='cont
         c.setViewportWidth(vw or width); c.setViewportHeight(vh or height)
     return c
 
+def from_template(template, name, title=None, width=None, height=None):
+    """A new form from a template form (File > New > Form Using Template): its objects, triggers,
+    attached libraries, and menu, under a new name. The template keeps MAIN_WIN and MAIN_CNV."""
+    start()
+    f = FormModule.open(template)
+    f.setName(name)
+    w, c = _find(Window, f, 'MAIN_WIN'), Canvas.find(f, 'MAIN_CNV')
+    if title: w.setTitle(title)
+    if width: w.setWidth(width); c.setWidth(width)
+    if height: w.setHeight(height); c.setHeight(height)
+    return f
+
 def main(f, title, width=560, height=320):
     """The usual pair: a document window MAIN_WIN with its content canvas MAIN_CNV."""
     w = window(f, 'MAIN_WIN', title, width, height)
@@ -112,7 +124,7 @@ def code_of(path):
     """The code of an example file (examples/<chapter>/<name>.pls), without its '-- @' lines:
     the same text the book prints."""
     if not path.startswith('/'): path = EXAMPLES + '/' + path
-    lines = [l for l in open(path).read().split('\n') if not l.lstrip().startswith('-- @')]
+    lines = [l for l in open(path).read().decode('utf-8').split(u'\n') if not l.lstrip().startswith('-- @')]  # UTF-8 files
     return '\n'.join(lines).strip('\n')
 
 def trigger(owner, name, code=None, file=None):

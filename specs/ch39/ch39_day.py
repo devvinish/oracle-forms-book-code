@@ -1,0 +1,36 @@
+# CH39_DAY: the appointments of a day, with check boxes to select several and cancel them at once,
+# and a long task that shows its progress (Chapter 39, recipes 7 and 10)
+from formkit import *
+f = form('CH39_DAY', 'CareWell Clinic')
+main(f, 'Appointments of the Day', 600, 330)
+alert(f, 'CONFIRM', 'Cancel Appointments', 'Cancel the selected appointments?', style='caution', buttons=('Yes', 'No'))
+c = block(f, 'CTL')
+item(c, 'DAY', 'Day', 40, 10, 80, dt='date', formatMask='DD-MON-YYYY', edge='start', initializeValue='18-NOV-2026')
+for name, text, x, w, code in [('SHOW', 'Show', 130, 60, "go_block('APPOINTMENTS');\nexecute_query;\n:ctl.selected := 0;"),
+                               ('SELECT_ALL', 'Select All', 196, 76, None), ('CANCEL_SELECTED', 'Cancel Selected', 278, 110, None)]:
+    b = item(c, name, text, x, 8, w, 22, kind='button', mouseNavigate=False, keyboardNavigable=False)
+    trigger(b, 'WHEN-BUTTON-PRESSED', code, file=None if code else 'ch39/%s.pls' % name.lower().replace('_selected', '-selected').replace('_all', '-all'))
+item(c, 'SELECTED', 'Selected', 450, 10, 30, dt='number', kind='display', edge='start')
+a = block(f, 'APPOINTMENTS', table='APPOINTMENTS', records=8, where='trunc(appt_start) = :ctl.day',
+          order='appt_start', scroll=True)
+a.setInsertAllowed(False); a.setDeleteAllowed(False)
+sel = item(a, 'SEL', None, 12, 56, 16, 16, kind='check', length=1, db=False)
+sel.setCheckedValue('Y'); sel.setUncheckedValue('N'); sel.setInitializeValue('N'); sel.setLabel('')
+item(a, 'APPT_ID', None, dt='number', cnv=None)
+item(a, 'PATIENT_ID', None, dt='number', cnv=None)
+item(a, 'DOCTOR_ID', None, dt='number', cnv=None)
+item(a, 'APPT_START', 'Time', 32, 56, 40, dt='datetime', formatMask='HH24:MI', updateAllowed=False)
+item(a, 'PATIENT_NAME', 'Patient', 74, 56, 120, length=61, db=False, updateAllowed=False, insertAllowed=False)
+item(a, 'DOCTOR_NAME', 'Doctor', 196, 56, 120, length=61, db=False, updateAllowed=False, insertAllowed=False)
+item(a, 'STATUS', 'Status', 318, 56, 76, length=10, updateAllowed=False)
+item(a, 'REASON', 'Reason', 396, 56, 184, length=100)
+a.setScrollbarXPosition(582); a.setScrollbarYPosition(56); a.setScrollbarLength(132); a.setScrollbarWidth(10)
+trigger(a, 'POST-QUERY', file='ch39/day-post-query.pls')
+trigger(sel, 'WHEN-CHECKBOX-CHANGED', file='ch39/sel-changed.pls')
+frame(f, 'FR_REMIND', 'Reminders for every booked appointment', 8, 212, 584, 70)
+b = item(c, 'REMIND', 'Send Reminders', 20, 240, 110, 22, kind='button', mouseNavigate=False, keyboardNavigable=False)
+trigger(b, 'WHEN-BUTTON-PRESSED', file='ch39/send-reminders.pls')
+item(c, 'PROGRESS', None, 150, 240, 420, 22, dt='number', kind='display',
+     displayUiStyle=T.DUST_PROGRESS_CTID, uiMinval=0, uiMaxval=100)
+trigger(f, 'WHEN-NEW-FORM-INSTANCE', "go_block('APPOINTMENTS');\nexecute_query;\n:ctl.selected := 0;")
+save(f)

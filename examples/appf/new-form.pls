@@ -1,4 +1,4 @@
--- @ APPF_NEW: WHEN-NEW-FORM-INSTANCE
+-- @where Trigger: WHEN-NEW-FORM-INSTANCE (form APPF_NEW)
 -- the share of all appointments in each status, for the gauges
 declare
   v_rg recordgroup;

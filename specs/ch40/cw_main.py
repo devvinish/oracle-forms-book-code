@@ -1,0 +1,31 @@
+# CW_MAIN: the home form of the CareWell application, from the template (Chapter 40)
+from formkit import *
+from oracle.forms.jdapi import Report
+f = from_template('/work/forms/cw_template.fmb', 'CW_MAIN', 'Home', 560, 290)
+f.setMenuModule('cw_app')
+h = block(f, 'HOME')
+item(h, 'WELCOME', None, 16, 12, 400, 20, kind='display', length=100, fontSize=1200, fontWeight=T.FOWG_BOLD_CTID)
+frame(f, 'FR_TODAY', 'Today', 12, 44, 260, 110)
+item(h, 'TODAY_TOTAL', 'Appointments', 150, 64, 50, dt='number', kind='display', edge='start')
+item(h, 'CHECKED_IN', 'Checked in', 150, 86, 50, dt='number', kind='display', edge='start')
+b = item(h, 'SCHEDULE', 'Print Schedule', 150, 114, 110, 22, kind='button', mouseNavigate=False)
+trigger(b, 'WHEN-BUTTON-PRESSED', 'print_schedule;')
+frame(f, 'FR_BILLING', 'Billing', 284, 44, 264, 110)
+item(h, 'OPEN_INVOICES', 'Open invoices', 380, 64, 50, dt='number', kind='display', edge='start')
+item(h, 'OPEN_AMOUNT', 'Amount due', 380, 86, 70, dt='number', kind='display', formatMask='99G990', edge='start')
+item(h, 'COLLECTED', 'Collected', 460, 60, 80, 56, dt='number', kind='display',
+     displayUiStyle=T.DUST_HALFGAUGE_CTID, uiMinval=0, uiMaxval=100)
+for name, text, x, code in [('PATIENTS', 'Patients', 12, "cw_nav.open_module('cw_patients');"),
+                            ('INVOICES', 'Invoices', 146, "cw_nav.open_module('cw_billing');")]:
+    b = item(h, name, text, x, 170, 126, 40, kind='button', mouseNavigate=False)
+    trigger(b, 'WHEN-BUTTON-PRESSED', code)
+r = Report(f, 'APPT_SCHEDULE')
+r.setFilename('/work/reports/cw_appt_schedule.rdf')
+r.setReportObjectType(0); r.setCommMode(T.COMO_SYNCH_CTID); r.setExecuteMode(T.EXMO_BATCH_CTID)
+r.setReportDestinationType(T.RPDE_CACHE_CTID); r.setReportDestinationFormat('PDF')
+r.setReportServer('rep_wls_reports_formslab')
+unit(f, 'REFRESH_HOME', file='ch40/refresh-home.pls')
+unit(f, 'PRINT_SCHEDULE', file='ch40/print-schedule.pls')
+Trigger.find(f, 'WHEN-NEW-FORM-INSTANCE').setTriggerText("cw_nav.start_form(:parameter.p_user);\nrefresh_home;")
+trigger(f, 'WHEN-FORM-NAVIGATE', 'refresh_home;              -- back on the home form: fresh numbers')
+save(f)

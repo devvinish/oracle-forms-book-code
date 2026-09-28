@@ -1,0 +1,21 @@
+# CH30_FEE_IMPORT: new consultation fees read from a CSV file on the user's computer (Chapter 30)
+from formkit import *
+f = form('CH30_FEE_IMPORT', 'CareWell Clinic')
+main(f, 'Import Fees (WebUtil)', 520, 250)
+AttachedLibrary(f, 'webutil')
+c = block(f, 'CTL')
+for name, text, x in [('IMPORT', 'Import...', 12), ('APPLY', 'Apply', 100)]:
+    b = item(c, name, text, x, 8, 80, 22, kind='button', mouseNavigate=False, keyboardNavigable=False)
+    trigger(b, 'WHEN-BUTTON-PRESSED', file='ch30/fees-%s.pls' % name.lower())
+fe = block(f, 'FEES', records=8)
+item(fe, 'DOCTOR_ID', 'ID', 12, 52, 40, dt='number')
+item(fe, 'DOCTOR_NAME', 'Doctor', 54, 52, 130, length=61)
+item(fe, 'OLD_FEE', 'Fee now', 186, 52, 60, dt='number')
+item(fe, 'NEW_FEE', 'New fee', 248, 52, 60, dt='number')
+item(fe, 'NOTE', 'Note', 310, 52, 196, length=100)
+olb = ObjectLibrary.open('/u01/oracle/fmw/forms/webutil.olb')
+lib = dict([(o.getName(), o) for o in olb.getObjectLibraryObjects()])
+ObjectGroup(f, 'WEBUTIL_NO_OLE').setSubclassParent(lib['WEBUTIL_NO_OLE'])
+for name in ['CTL', 'FEES']:
+    Block.find(f, name).move(Block.find(f, 'WEBUTIL'))
+save(f)

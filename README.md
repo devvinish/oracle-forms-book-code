@@ -80,7 +80,7 @@ Chapter 5 of the book describes the schema; Chapter 4 walks through building and
 | 27. Blocks on Procedures, Queries, and Triggers | [`ch27_fee_proc_wizard.fmb`](forms/ch27/ch27_fee_proc_wizard.fmb), [`ch27_fee_proc.fmb`](forms/ch27/ch27_fee_proc.fmb), [`ch27_slots.fmb`](forms/ch27/ch27_slots.fmb), [`ch27_workload.fmb`](forms/ch27/ch27_workload.fmb) | [`ch27`](examples/ch27) (8) |
 | 28. Object Libraries and Templates | [`ch28_patient.fmb`](forms/ch28/ch28_patient.fmb), [`cw_objects.olb`](forms/ch28/cw_objects.olb), [`cw_template.fmb`](forms/ch28/cw_template.fmb) | — |
 | 29. Timers and Events | [`ch29_waiting_room.fmb`](forms/ch29/ch29_waiting_room.fmb) | [`ch29`](examples/ch29) (5) |
-| 30. WebUtil | [`ch30_patient_files.fmb`](forms/ch30/ch30_patient_files.fmb) | [`ch30`](examples/ch30) (4) |
+| 30. WebUtil | [`ch30_documents.fmb`](forms/ch30/ch30_documents.fmb), [`ch30_fee_import.fmb`](forms/ch30/ch30_fee_import.fmb), [`ch30_patient_files.fmb`](forms/ch30/ch30_patient_files.fmb) | [`ch30`](examples/ch30) (11) |
 | 31. Java and JavaScript in the Forms Client | [`ch31_bean.fmb`](forms/ch31/ch31_bean.fmb), [`ch31_fbean.fmb`](forms/ch31/ch31_fbean.fmb), [`ch31_js.fmb`](forms/ch31/ch31_js.fmb), [`ch31_pjc.fmb`](forms/ch31/ch31_pjc.fmb) | [`ch31`](examples/ch31) (10) |
 | 32. REST Services and JSON | [`ch32_claims.fmb`](forms/ch32/ch32_claims.fmb), [`ch32_rest_packages.fmb`](forms/ch32/ch32_rest_packages.fmb) | [`ch32`](examples/ch32) (5) |
 | 33. Oracle Reports | [`ch33_reports.fmb`](forms/ch33/ch33_reports.fmb) | [`ch33`](examples/ch33) (2) |
@@ -94,6 +94,13 @@ Chapter 5 of the book describes the schema; Chapter 4 walks through building and
 | 36. Administration and Security | — | — |
 | 37. Upgrading to Forms 14.1.2 | [`ch37_legacy_before.fmb`](forms/ch37/ch37_legacy_before.fmb), [`ch37_legacy.fmb`](forms/ch37/ch37_legacy.fmb) | [`ch37`](examples/ch37) (3) |
 | 38. Automating Forms Development | — | [`ch38`](examples/ch38) (2) |
+
+### Part undefined — Putting It Together
+
+| Chapter | Forms | Examples |
+|---|---|---|
+| 39. A Forms Cookbook | [`ch39_booking.fmb`](forms/ch39/ch39_booking.fmb), [`ch39_day.fmb`](forms/ch39/ch39_day.fmb), [`ch39_doctors.fmb`](forms/ch39/ch39_doctors.fmb), [`ch39_find.fmb`](forms/ch39/ch39_find.fmb), [`ch39_visit.fmb`](forms/ch39/ch39_visit.fmb) | [`ch39`](examples/ch39) (21) |
+| 40. CareWell Clinic, End to End | [`cw_app.mmb`](forms/ch40/cw_app.mmb), [`cw_appointments.fmb`](forms/ch40/cw_appointments.fmb), [`cw_billing.fmb`](forms/ch40/cw_billing.fmb), [`cw_login.fmb`](forms/ch40/cw_login.fmb), [`cw_main.fmb`](forms/ch40/cw_main.fmb), [`cw_patients.fmb`](forms/ch40/cw_patients.fmb) | [`ch40`](examples/ch40) (10) |
 
 ### Appendices
 
