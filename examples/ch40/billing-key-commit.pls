@@ -11,8 +11,9 @@ begin
     select status into v_status from invoices where invoice_id = v_id;
     go_block('INVOICES');
     execute_query;
-    if :ctl.patient_id is not null then  -- a patient's invoices: back to the one just paid
-      loop                                -- (in the list of invoices to be paid, a paid one is gone)
+    -- a patient's invoices: back to the one just paid (in the list to be paid, it is gone)
+    if :ctl.patient_id is not null then
+      loop
         exit when :invoices.invoice_id = v_id or :system.last_record = 'TRUE';
         next_record;
       end loop;

@@ -13,8 +13,8 @@ begin
   :ctl.sort_column  := p_column;
   :ctl.sort_heading := p_heading;
   :ctl.sort_label   := p_label;
-  set_item_property(p_heading, LABEL,
-                    p_label || case :ctl.sort_dir when 'ASC' then ' ▲' else ' ▼' end);
+  set_item_property(p_heading, LABEL,                 -- an up or down triangle after the label
+                    p_label || ' ' || case :ctl.sort_dir when 'ASC' then unistr('\25B2') else unistr('\25BC') end);
   set_block_property('PATIENTS', ORDER_BY, p_column || ' ' || :ctl.sort_dir);
   go_block('PATIENTS');
   execute_query;
