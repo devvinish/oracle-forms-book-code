@@ -1,8 +1,8 @@
 -- Removes the CareWell Clinic objects (run as CAREWELL).
 begin
-  execute immediate 'drop package cw_api';
-exception
-  when others then null;                 -- not installed
+  for p in (select object_name from user_objects where object_type = 'PACKAGE' and object_name like 'CW\_%' escape '\') loop
+    execute immediate 'drop package ' || p.object_name;
+  end loop;
 end;
 /
 begin

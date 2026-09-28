@@ -70,6 +70,12 @@ Chapter 5 of the book describes the schema; Chapter 4 walks through building and
 | 25. Menus and Security | [`ch25_patients.fmb`](forms/ch25/ch25_patients.fmb), [`cw_menu.mmb`](forms/ch25/cw_menu.mmb) | [`ch25`](examples/ch25) (8) |
 | 26. Errors, Messages, and Debugging | [`ch26_errors.fmb`](forms/ch26/ch26_errors.fmb) | [`ch26`](examples/ch26) (4) |
 
+### Part IV — Advanced Forms
+
+| Chapter | Forms | Examples |
+|---|---|---|
+| 27. Blocks on Procedures, Queries, and Triggers | [`ch27_fee_proc_wizard.fmb`](forms/ch27/ch27_fee_proc_wizard.fmb), [`ch27_fee_proc.fmb`](forms/ch27/ch27_fee_proc.fmb), [`ch27_slots.fmb`](forms/ch27/ch27_slots.fmb), [`ch27_workload.fmb`](forms/ch27/ch27_workload.fmb) | [`ch27`](examples/ch27) (8) |
+
 ## License
 
 The code is provided as-is for learning, under the MIT License. Oracle and Java are registered
