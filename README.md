@@ -55,6 +55,12 @@ Chapter 5 of the book describes the schema; Chapter 4 walks through building and
 | 15. Lists of Values and Record Groups | [`ch15_booking.fmb`](forms/ch15/ch15_booking.fmb) | [`ch15`](examples/ch15) (2) |
 | 16. Alerts, Editors, and Parameters | [`ch16_visits.fmb`](forms/ch16/ch16_visits.fmb) | [`ch16`](examples/ch16) (3) |
 
+### Part III — Programming Forms
+
+| Chapter | Forms | Examples |
+|---|---|---|
+| 17. PL/SQL in Forms | [`ch17_summary.fmb`](forms/ch17/ch17_summary.fmb) | [`ch17`](examples/ch17) (4) |
+
 ## License
 
 The code is provided as-is for learning, under the MIT License. Oracle and Java are registered

@@ -1,5 +1,11 @@
 -- Removes the CareWell Clinic objects (run as CAREWELL).
 begin
+  execute immediate 'drop package cw_api';
+exception
+  when others then null;                 -- not installed
+end;
+/
+begin
   for t in (select table_name from user_tables where table_name <> 'AUDIT_LOG') loop
     execute immediate 'drop table ' || t.table_name || ' cascade constraints purge';
   end loop;
