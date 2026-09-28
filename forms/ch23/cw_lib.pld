@@ -1,0 +1,74 @@
+
+
+package cw_msg is
+  -- shows a message box and returns the button pressed: 1, 2, or 3
+  function ask(p_text varchar2, p_buttons varchar2 default 'OK',
+               p_style varchar2 default 'NOTE') return pls_integer;
+  procedure inform(p_text varchar2);
+  procedure fail(p_text varchar2);        -- stop alert, then FORM_TRIGGER_FAILURE
+end cw_msg;
+
+
+package body cw_msg is
+  function ask(p_text varchar2, p_buttons varchar2 default 'OK',
+               p_style varchar2 default 'NOTE') return pls_integer is
+    v_alert varchar2(30) := 'CW_' || upper(p_style);   -- CW_NOTE, CW_CAUTION, CW_STOP
+    v_rest  varchar2(100) := p_buttons || ',';
+    v_btn   number;
+  begin
+    if id_null(find_alert(v_alert)) then
+      message('CW_MSG: the form has no alert ' || v_alert);
+      raise form_trigger_failure;
+    end if;
+    set_alert_property(v_alert, alert_message_text, p_text);
+    for i in 1 .. 3 loop                              -- labels from 'Yes,No'
+      exit when v_rest is null;
+      set_alert_button_property(v_alert,
+        case i when 1 then alert_button1 when 2 then alert_button2 else alert_button3 end,
+        label, substr(v_rest, 1, instr(v_rest, ',') - 1));
+      v_rest := substr(v_rest, instr(v_rest, ',') + 1);
+    end loop;
+    v_btn := show_alert(v_alert);
+    return case v_btn when alert_button1 then 1 when alert_button2 then 2 else 3 end;
+  end ask;
+
+  procedure inform(p_text varchar2) is
+    n pls_integer;
+  begin
+    n := ask(p_text);
+  end inform;
+
+  procedure fail(p_text varchar2) is
+    n pls_integer;
+  begin
+    n := ask(p_text, 'OK', 'STOP');
+    raise form_trigger_failure;
+  end fail;
+end cw_msg;
+
+
+procedure set_block_read_only(p_block varchar2, p_read_only boolean) is
+  v_item  varchar2(61) := get_block_property(p_block, first_item);
+  v_name  varchar2(61);
+  v_value number := case when p_read_only then property_false else property_true end;
+begin
+  while v_item is not null loop
+    v_name := p_block || '.' || v_item;
+    if get_item_property(v_name, item_type) in ('TEXT ITEM', 'LIST', 'RADIO GROUP')
+       and get_item_property(v_name, base_table) = 'TRUE'
+       and get_item_property(v_name, item_canvas) is not null then
+      set_item_property(v_name, update_allowed, v_value);
+      set_item_property(v_name, insert_allowed, v_value);
+    end if;
+    v_item := get_item_property(v_name, nextitem);
+  end loop;
+  set_block_property(p_block, delete_allowed, v_value);
+end;
+
+
+procedure stamp_city(p_block varchar2) is
+begin
+  if name_in(p_block || '.CITY') is null then             -- read :<block>.city
+    copy(name_in('GLOBAL.CW_CITY'), p_block || '.CITY');   -- write it from :global.cw_city
+  end if;
+end stamp_city;

@@ -64,6 +64,8 @@ Chapter 5 of the book describes the schema; Chapter 4 walks through building and
 | 19. Validation | [`ch19_appointment.fmb`](forms/ch19/ch19_appointment.fmb) | [`ch19`](examples/ch19) (3) |
 | 20. Query Processing | [`ch20_search.fmb`](forms/ch20/ch20_search.fmb) | [`ch20`](examples/ch20) (2) |
 | 21. Transactions and Locking | [`ch21_fees.fmb`](forms/ch21/ch21_fees.fmb), [`ch21_invoices.fmb`](forms/ch21/ch21_invoices.fmb) | [`ch21`](examples/ch21) (3) |
+| 22. Changing a Form at Run Time | [`ch22_runtime.fmb`](forms/ch22/ch22_runtime.fmb) | [`ch22`](examples/ch22) (3) |
+| 23. PL/SQL Libraries | [`ch23_library.fmb`](forms/ch23/ch23_library.fmb), [`cw_lib.pld`](forms/ch23/cw_lib.pld), [`cw_lib.pll`](forms/ch23/cw_lib.pll) | [`ch23`](examples/ch23) (9) |
 
 ## License
 
