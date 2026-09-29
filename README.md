@@ -6,6 +6,12 @@ scripts that install **CareWell Clinic**, the book's sample application.
 
 Everything was built and run with Oracle Forms 14.1.2.0.0 against Oracle AI Database 26ai Free.
 
+## The Book
+
+- **Book page:** [vinish.dev/oracle-forms-14c-book](https://vinish.dev/oracle-forms-14c-book) — what the book covers, sample pages, and the table of contents
+- **Kindle edition** on Amazon: [amazon.com/dp/B0HL9N1BKV](https://www.amazon.com/dp/B0HL9N1BKV)
+- **Paperback:** coming soon on Amazon — 484 pages, 7.5 x 9.25 in, ISBN 9798177639284
+
 ## What's Here
 
 | Folder | Contents |
